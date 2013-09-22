@@ -23,6 +23,9 @@ define(function (require, exports, module) {
             } else if (ch === "/" && stream.eat("*")) {
                 state.tokenize = tokenCComment;
                 return tokenCComment(stream, state);
+            } else if (ch === "/" && stream.eat("/")) {
+                stream.skipToEnd();
+                return ret("comment", "comment");
             } else if (ch === "<" && stream.eat("!")) {
                 state.tokenize = tokenSGMLComment;
                 return tokenSGMLComment(stream, state);
