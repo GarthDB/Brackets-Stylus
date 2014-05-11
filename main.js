@@ -7,6 +7,8 @@ define(function (require, exports, module) {
     var CodeMirror = brackets.getModule("thirdparty/CodeMirror2/lib/codemirror"),
         LanguageManager = brackets.getModule("language/LanguageManager");
 
+    var tokenCComment, tokenSGMLComment, tokenString;
+
     CodeMirror.defineMode("stylus", function (config) {
         var indentUnit = config.indentUnit,
             type;
