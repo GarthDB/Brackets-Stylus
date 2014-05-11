@@ -4,7 +4,8 @@
 define(function (require, exports, module) {
     "use strict";
 
-    var LanguageManager = brackets.getModule("language/LanguageManager");
+    var CodeMirror = brackets.getModule("thirdparty/CodeMirror2/lib/codemirror"),
+        LanguageManager = brackets.getModule("language/LanguageManager");
 
     CodeMirror.defineMode("stylus", function (config) {
         var indentUnit = config.indentUnit,
