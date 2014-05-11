@@ -156,7 +156,7 @@ define(function (require, exports, module) {
     LanguageManager.defineLanguage("stylus", {
         name: "Stylus",
         mode: "stylus",
-        fileExtensions: ["styl","stylus"],
+        fileExtensions: ["styl", "stylus"],
         blockComment: ["/*", "*/"],
         lineComment: "//"
     });
