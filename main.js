@@ -56,7 +56,7 @@ define(function (require, exports, module) {
         function tokenCComment(stream, state) {
             var maybeEnd = false,
                 ch;
-            while ((ch = stream.next()) != null) {
+            while ((ch = stream.next()) !== null) {
                 if (maybeEnd && ch === "/") {
                     state.tokenize = tokenBase;
                     break;
@@ -69,7 +69,7 @@ define(function (require, exports, module) {
         function tokenSGMLComment(stream, state) {
             var dashes = 0,
                 ch;
-            while ((ch = stream.next()) != null) {
+            while ((ch = stream.next()) !== null) {
                 if (dashes >= 2 && ch === ">") {
                     state.tokenize = tokenBase;
                     break;
@@ -83,7 +83,7 @@ define(function (require, exports, module) {
             return function (stream, state) {
                 var escaped = false,
                     ch;
-                while ((ch = stream.next()) != null) {
+                while ((ch = stream.next()) !== null) {
                     if (ch === quote && !escaped) {
                         break;
                     }
@@ -135,7 +135,7 @@ define(function (require, exports, module) {
                     state.stack.pop();
                 } else if (type === "@media") {
                     state.stack.push("@media");
-                } else if (context === "{" && type != "comment") {
+                } else if (context === "{" && type !== "comment") {
                     state.stack.push("rule");
                 }
                 return style;
