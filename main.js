@@ -4,7 +4,10 @@
 define(function (require, exports, module) {
     "use strict";
 
-    var LanguageManager = brackets.getModule("language/LanguageManager");
+    var CodeMirror = brackets.getModule("thirdparty/CodeMirror2/lib/codemirror"),
+        LanguageManager = brackets.getModule("language/LanguageManager");
+
+    var tokenCComment, tokenSGMLComment, tokenString;
 
     CodeMirror.defineMode("stylus", function (config) {
         var indentUnit = config.indentUnit,
@@ -23,6 +26,9 @@ define(function (require, exports, module) {
             } else if (ch === "/" && stream.eat("*")) {
                 state.tokenize = tokenCComment;
                 return tokenCComment(stream, state);
+            } else if (ch === "/" && stream.eat("/")) {
+                stream.skipToEnd();
+                return ret("comment", "comment");
             } else if (ch === "<" && stream.eat("!")) {
                 state.tokenize = tokenSGMLComment;
                 return tokenSGMLComment(stream, state);
@@ -34,6 +40,9 @@ define(function (require, exports, module) {
                 state.tokenize = tokenString(ch);
                 return state.tokenize(stream, state);
             } else if (ch === "#") {
+                stream.eatWhile(/[\w\\\-]/);
+                return ret("atom", "hash");
+            } else if (ch === ".") {
                 stream.eatWhile(/[\w\\\-]/);
                 return ret("atom", "hash");
             } else if (ch === "!") {
@@ -55,7 +64,7 @@ define(function (require, exports, module) {
         function tokenCComment(stream, state) {
             var maybeEnd = false,
                 ch;
-            while ((ch = stream.next()) != null) {
+            while ((ch = stream.next()) !== null) {
                 if (maybeEnd && ch === "/") {
                     state.tokenize = tokenBase;
                     break;
@@ -68,7 +77,7 @@ define(function (require, exports, module) {
         function tokenSGMLComment(stream, state) {
             var dashes = 0,
                 ch;
-            while ((ch = stream.next()) != null) {
+            while ((ch = stream.next()) !== null) {
                 if (dashes >= 2 && ch === ">") {
                     state.tokenize = tokenBase;
                     break;
@@ -82,7 +91,7 @@ define(function (require, exports, module) {
             return function (stream, state) {
                 var escaped = false,
                     ch;
-                while ((ch = stream.next()) != null) {
+                while ((ch = stream.next()) !== null) {
                     if (ch === quote && !escaped) {
                         break;
                     }
@@ -134,7 +143,7 @@ define(function (require, exports, module) {
                     state.stack.pop();
                 } else if (type === "@media") {
                     state.stack.push("@media");
-                } else if (context === "{" && type != "comment") {
+                } else if (context === "{" && type !== "comment") {
                     state.stack.push("rule");
                 }
                 return style;
@@ -155,7 +164,7 @@ define(function (require, exports, module) {
     LanguageManager.defineLanguage("stylus", {
         name: "Stylus",
         mode: "stylus",
-        fileExtensions: ["styl","stylus"],
+        fileExtensions: ["styl", "stylus"],
         blockComment: ["/*", "*/"],
         lineComment: "//"
     });
