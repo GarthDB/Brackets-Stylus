@@ -64,7 +64,7 @@ define(function (require, exports, module) {
         function tokenCComment(stream, state) {
             var maybeEnd = false,
                 ch;
-            while ((ch = stream.next()) !== null) {
+            while (ch = stream.next()) {
                 if (maybeEnd && ch === "/") {
                     state.tokenize = tokenBase;
                     break;
@@ -77,7 +77,7 @@ define(function (require, exports, module) {
         function tokenSGMLComment(stream, state) {
             var dashes = 0,
                 ch;
-            while ((ch = stream.next()) !== null) {
+            while (ch = stream.next()) {
                 if (dashes >= 2 && ch === ">") {
                     state.tokenize = tokenBase;
                     break;
@@ -91,7 +91,7 @@ define(function (require, exports, module) {
             return function (stream, state) {
                 var escaped = false,
                     ch;
-                while ((ch = stream.next()) !== null) {
+                while (ch = stream.next()) {
                     if (ch === quote && !escaped) {
                         break;
                     }
