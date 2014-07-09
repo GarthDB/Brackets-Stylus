@@ -1,0 +1,12 @@
+{
+    "name": "garthdb.brackets-stylus",
+    "title": "Stylus Extension for Brackets",
+    "description": "A basic stylus extension for Brackets",
+    "homepage": "https://github.com/GarthDB/Brackets-Stylus",
+    "version": "0.1.0",
+    "author": "Garth Braithwaite <garthdb@gmail.com> (http://garthdb.com)",
+    "license": "MIT",
+    "engines": {
+        "brackets": ">=0.24.0"
+    }
+}
