@@ -4,7 +4,10 @@
 define(function (require, exports, module) {
     "use strict";
 
-    var LanguageManager = brackets.getModule("language/LanguageManager");
+    var CodeMirror = brackets.getModule("thirdparty/CodeMirror2/lib/codemirror"),
+        LanguageManager = brackets.getModule("language/LanguageManager");
+
+    var tokenCComment, tokenSGMLComment, tokenString;
 
     CodeMirror.defineMode("stylus", function (config) {
         var indentUnit = config.indentUnit,
@@ -140,7 +143,7 @@ define(function (require, exports, module) {
                     state.stack.pop();
                 } else if (type === "@media") {
                     state.stack.push("@media");
-                } else if (context === "{" && type != "comment") {
+                } else if (context === "{" && type !== "comment") {
                     state.stack.push("rule");
                 }
                 return style;
@@ -161,7 +164,7 @@ define(function (require, exports, module) {
     LanguageManager.defineLanguage("stylus", {
         name: "Stylus",
         mode: "stylus",
-        fileExtensions: ["styl","stylus"],
+        fileExtensions: ["styl", "stylus"],
         blockComment: ["/*", "*/"],
         lineComment: "//"
     });
