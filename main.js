@@ -48,7 +48,7 @@ define(function (require, exports, module) {
             } else if (ch === "!") {
                 stream.match(/^\s*\w*/);
                 return ret("keyword", "important");
-            } else if (/\d/.test(ch)) {
+            } else if (/[\d-]/.test(ch)) {
                 stream.eatWhile(/[\w.%]/);
                 return ret("number", "unit");
             } else if (/[,.+>*\/]/.test(ch)) {
