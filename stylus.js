@@ -42,7 +42,7 @@ CodeMirror.defineMode("stylus", function(config) {
     // Def
     if (ch === "@") {
       stream.next();
-      if (stream.match(/extend/)) {
+      if (stream.match(/extends?/)) {
         dedent(state); // remove indentation after selectors
       } else if (stream.match(/media[\w-\s]*[\w-]/)) {
         indent(state);
