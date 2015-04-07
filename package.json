@@ -3,7 +3,7 @@
     "title": "Stylus Extension for Brackets",
     "description": "A basic stylus extension for Brackets",
     "homepage": "https://github.com/GarthDB/Brackets-Stylus",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "author": "Garth Braithwaite <garthdb@gmail.com> (http://garthdb.com)",
     "license": "MIT",
     "engines": {
